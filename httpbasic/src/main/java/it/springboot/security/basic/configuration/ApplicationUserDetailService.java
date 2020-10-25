@@ -1,7 +1,7 @@
 package it.springboot.security.basic.configuration;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,7 +25,10 @@ public class ApplicationUserDetailService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Users user = usersRepository.findByNome(username);
-    	List<GrantedAuthority> grantedAuthorities = Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
+    	List<GrantedAuthority> grantedAuthorities = user.getRoles()
+				.stream()
+				.map(roles -> new SimpleGrantedAuthority(roles.getDescription()))
+				.collect(Collectors.toList());
     	
     	return new User(user.getNome(), user.getPassword(), grantedAuthorities);
 	}

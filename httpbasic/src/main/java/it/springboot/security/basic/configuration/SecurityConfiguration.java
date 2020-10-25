@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -20,11 +21,13 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+	private final ApplicationUserDetailService userDetailService;
 	
 	@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-      auth.inMemoryAuthentication().withUser("guest").password("{noop}guest1234").roles("USER");
-//		auth.userDetailsService(userDetailService).passwordEncoder(new BCryptPasswordEncoder());
+//      auth.inMemoryAuthentication().withUser("guest").password("{noop}guest1234").roles("USER");
+		auth.userDetailsService(userDetailService).passwordEncoder(new BCryptPasswordEncoder());
     }
 	
 	@Bean
