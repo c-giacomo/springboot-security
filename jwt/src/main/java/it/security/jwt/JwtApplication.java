@@ -31,6 +31,7 @@ public class JwtApplication implements CommandLineRunner {
 		Users admin = new Users();
 		admin.setNome("Giacomo");
 		admin.setCognome("Chiavolotti");
+		admin.setUsername("Giacomo");
 		admin.setPassword(new BCryptPasswordEncoder().encode("230483"));
 		
 		userList.add(admin);
