@@ -1,0 +1,1 @@
+# Oauth flow with client in a maven-module dependency and resource-server in main app. Okta as Authorization Server

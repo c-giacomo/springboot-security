@@ -1,1 +1,1 @@
-# springboot-security-httpbasic
+# some kind of Spring Security Authentication
